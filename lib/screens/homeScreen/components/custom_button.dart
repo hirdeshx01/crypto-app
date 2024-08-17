@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
-  final String label; // Add a label property
+  final String label;
 
   const CustomButton({
     super.key,
     required this.icon,
     required this.onPressed,
-    required this.label, // Initialize the label property
+    required this.label,
   });
 
   @override
@@ -17,17 +17,20 @@ class CustomButton extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        IconButton.filledTonal(
+        IconButton.filled(
           style: IconButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
             ),
           ),
-          icon: Icon(icon),
+          iconSize: 32,
+          icon: Icon(
+            icon,
+            color: Colors.white,
+          ),
           onPressed: onPressed,
         ),
-        const SizedBox(height: 4), // Add some spacing between the icon and text
-        Text(label), // Add the text below the icon button
+        Text(label),
       ],
     );
   }

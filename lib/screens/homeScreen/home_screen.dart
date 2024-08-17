@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ampiy_homepage/models/crypto_list.dart';
-import 'package:ampiy_homepage/screens/homeScreen/components/crypto_symbol.dart';
+import 'package:ampiy_homepage/screens/homeScreen/components/crypto_list_view.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Coins'),
-        elevation: 4,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -76,9 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(height: 24),
-            ...cryptoData.entries.map((entry) {
-              return CryptoSymbol(crypto: entry.key, cryptoData: entry.value);
-            }),
+            Expanded(
+              child: CryptoListView(
+                cryptoList: cryptoList,
+              ),
+            ),
           ],
         ),
       ),
@@ -104,12 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
       final data = jsonDecode(message);
       if (data['stream'] == 'all@fpTckr') {
         setState(() {
-          cryptoData.forEach((key, value) {
+          cryptoList.forEach((key, value) {
             final item = data['data'].firstWhere(
               (item) => item['s'] == key,
               orElse: () => {},
             );
-            cryptoData[key] = item;
+            cryptoList[key] = item;
           });
         });
       }

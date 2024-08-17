@@ -1,4 +1,4 @@
-Map<String, Map<String, dynamic>> cryptoData = {
+Map<String, Map<String, dynamic>> cryptoList = {
   'BTCINR': {},
   'ETHINR': {},
   'XRPINR': {},

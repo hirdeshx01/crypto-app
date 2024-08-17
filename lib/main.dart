@@ -12,11 +12,36 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
+      themeMode: ThemeMode.system,
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.lightBlue,
+            brightness: Brightness.dark,
+            primary: const Color.fromARGB(255, 35, 57, 222)),
         textTheme: GoogleFonts.jetBrainsMonoTextTheme(
           const TextTheme(
-            displayMedium: TextStyle(fontWeight: FontWeight.bold),
-            titleMedium: TextStyle(fontWeight: FontWeight.bold),
+            displayMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+            titleMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.lightBlue,
+          primary: const Color.fromARGB(255, 35, 57, 222),
+        ),
+        textTheme: GoogleFonts.jetBrainsMonoTextTheme(
+          const TextTheme(
+            displayMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+            titleMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
