@@ -1,11 +1,21 @@
+Map<String, String> cryptoFullName = {
+  'BTC': 'Bitcoin',
+  'ETH': 'Ethereum',
+  'XRP': 'Ripple',
+  'DOGE': 'Dogecoin',
+  'ADA': 'Cardano',
+  'DOT': 'Polkadot',
+  'UNI': 'Uniswap',
+  'LINK': 'Chainlink',
+};
+
 Map<String, Map<String, dynamic>> cryptoList = {
-  'BTCINR': {},
-  'ETHINR': {},
-  'XRPINR': {},
-  'DOGEINR': {},
-  'ADAINR': {},
-  'DOTINR': {},
-  'UNIINR': {},
-  'LINKINR': {},
-  'LTCINR': {},
+  'BTC': {},
+  'ETH': {},
+  'XRP': {},
+  'DOGE': {},
+  'ADA': {},
+  'DOT': {},
+  'UNI': {},
+  'LINK': {},
 };

@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isLoading = false;
   final WebSocketChannel channel = WebSocketChannel.connect(
     Uri.parse('ws://prereg.ex.api.ampiy.com/prices'),
   );
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Center(
               child: Text(
-                '\$69,420', //for demonstration purposes only
+                '₹69,420', //for demonstration purposes only
                 style: textTheme.displayMedium,
               ),
             ),
@@ -70,16 +71,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 CustomButton(
                   icon: Icons.arrow_downward_rounded,
                   onPressed: () {},
-                  label: 'Recieve',
+                  label: 'Receive',
                 )
               ],
             ),
             const SizedBox(height: 24),
-            Expanded(
-              child: CryptoListView(
-                cryptoList: cryptoList,
-              ),
-            ),
+            _isLoading
+                ? const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : Expanded(
+                    child: CryptoListView(
+                      cryptoList: cryptoList,
+                      cryptoFullName: cryptoFullName,
+                    ),
+                  ),
           ],
         ),
       ),
@@ -95,6 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _isLoading = true;
+    });
     channel.sink.add(jsonEncode({
       "method": "SUBSCRIBE",
       "params": ["all@ticker"],
@@ -102,16 +113,17 @@ class _HomeScreenState extends State<HomeScreen> {
     }));
 
     channel.stream.listen((message) {
-      final data = jsonDecode(message);
-      if (data['stream'] == 'all@fpTckr') {
+      final response = jsonDecode(message);
+      if (response['stream'] == 'all@fpTckr') {
         setState(() {
           cryptoList.forEach((key, value) {
-            final item = data['data'].firstWhere(
-              (item) => item['s'] == key,
+            final item = response['data'].firstWhere(
+              (item) => item['s'] == '${key}INR',
               orElse: () => {},
             );
             cryptoList[key] = item;
           });
+          _isLoading = false;
         });
       }
     });

@@ -15,9 +15,10 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.lightBlue,
-            brightness: Brightness.dark,
-            primary: const Color.fromARGB(255, 35, 57, 222)),
+          seedColor: Colors.lightBlue,
+          brightness: Brightness.dark,
+          primary: const Color(0xFF0000CD),
+        ),
         textTheme: GoogleFonts.jetBrainsMonoTextTheme(
           const TextTheme(
             displayMedium: TextStyle(

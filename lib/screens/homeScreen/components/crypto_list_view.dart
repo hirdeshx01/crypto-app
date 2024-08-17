@@ -1,11 +1,15 @@
+import 'package:cryptofont/cryptofont.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CryptoListView extends StatelessWidget {
   final Map<String, Map<String, dynamic>> cryptoList;
+  final Map<String, String> cryptoFullName;
 
   const CryptoListView({
     super.key,
     required this.cryptoList,
+    required this.cryptoFullName,
   });
 
   @override
@@ -15,11 +19,47 @@ class CryptoListView extends StatelessWidget {
       itemBuilder: (context, index) {
         String cryptoKey = cryptoList.keys.elementAt(index);
         Map<String, dynamic> cryptoData = cryptoList[cryptoKey]!;
+        String fullName = cryptoFullName[cryptoKey] ?? 'Unknown';
+
+        double currentPrice = double.parse(cryptoData['c']);
+        String formatCurrentPrice =
+            NumberFormat.currency(locale: 'en_IN', symbol: '₹')
+                .format(currentPrice);
+
+        Color posOrNeg = double.parse(cryptoData['P']) >= 0
+            ? const Color(0xFF32de84)
+            : const Color(0xFFfd5c63);
+
         return ListTile(
-          leading: const Icon(Icons.monetization_on),
+          leading: Icon(CryptoFontIcons.fromSymbol(cryptoKey)),
           title: Text(cryptoKey),
-          subtitle: Text('Price: ${cryptoData['BTCINR']}'),
-          trailing: const Icon(Icons.arrow_forward),
+          subtitle: Text(fullName),
+          trailing: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                formatCurrentPrice,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    double.parse(cryptoData['P']) >= 0
+                        ? Icons.arrow_drop_up_sharp
+                        : Icons.arrow_drop_down_sharp,
+                    color: posOrNeg,
+                  ),
+                  Text(
+                    '${cryptoData['P']}%',
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          color: posOrNeg,
+                        ),
+                  ),
+                ],
+              ),
+            ],
+          ),
           onTap: () {},
         );
       },
