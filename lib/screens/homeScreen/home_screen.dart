@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:ampiy_homepage/models/crypto_list.dart';
+import 'package:ampiy_homepage/screens/homeScreen/components/button_row.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/crypto_list_view.dart';
-import 'package:ampiy_homepage/screens/homeScreen/components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -50,31 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomButton(
-                  icon: Icons.attach_money_rounded,
-                  onPressed: () {},
-                  label: 'Buy',
-                ),
-                CustomButton(
-                  icon: Icons.swap_vert_rounded,
-                  onPressed: () {},
-                  label: 'Swap',
-                ),
-                CustomButton(
-                  icon: Icons.arrow_upward_rounded,
-                  onPressed: () {},
-                  label: 'Send',
-                ),
-                CustomButton(
-                  icon: Icons.arrow_downward_rounded,
-                  onPressed: () {},
-                  label: 'Receive',
-                )
-              ],
-            ),
+            const ButtonRow(),
             const SizedBox(height: 24),
             _isLoading
                 ? const Expanded(
