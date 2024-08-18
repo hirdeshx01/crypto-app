@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ampiy_homepage/models/crypto_list.dart';
+import 'package:ampiy_homepage/models/crypto_maps.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/button_row.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/crypto_list_view.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
@@ -39,14 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Coins'),
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar(
+        activeColor: colorScheme.error,
         iconSize: 28,
         icons: iconList,
         backgroundColor: colorScheme.surfaceContainerHigh,
         activeIndex: _currentIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.softEdge,
-        leftCornerRadius: 12,
-        rightCornerRadius: 12,
+        leftCornerRadius: 10,
+        rightCornerRadius: 10,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -85,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: CryptoListView(
                       cryptoList: cryptoList,
                       cryptoFullName: cryptoFullName,
+                      cryptoIcons: cryptoIcons,
                     ),
                   ),
           ],

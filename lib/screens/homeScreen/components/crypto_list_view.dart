@@ -1,15 +1,16 @@
-import 'package:cryptofont/cryptofont.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CryptoListView extends StatelessWidget {
   final Map<String, Map<String, dynamic>> cryptoList;
   final Map<String, String> cryptoFullName;
+  final Map<String, IconData> cryptoIcons;
 
   const CryptoListView({
     super.key,
     required this.cryptoList,
     required this.cryptoFullName,
+    required this.cryptoIcons,
   });
 
   @override
@@ -30,8 +31,10 @@ class CryptoListView extends StatelessWidget {
             ? const Color(0xFF32de84)
             : const Color(0xFFfd5c63);
 
+        IconData icon = cryptoIcons[cryptoKey]!;
+
         return ListTile(
-          leading: Icon(CryptoFontIcons.fromSymbol(cryptoKey)),
+          leading: Icon(icon),
           title: Text(cryptoKey),
           subtitle: Text(fullName),
           trailing: Column(
