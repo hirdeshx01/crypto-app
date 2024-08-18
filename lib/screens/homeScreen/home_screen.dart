@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ampiy_homepage/models/crypto_list.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/button_row.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/crypto_list_view.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -21,6 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final WebSocketChannel channel = WebSocketChannel.connect(
     Uri.parse('ws://prereg.ex.api.ampiy.com/prices'),
   );
+  final iconList = <IconData>[
+    Icons.home_rounded,
+    Icons.bar_chart_rounded,
+    Icons.wallet_rounded,
+    Icons.person_4_rounded,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,40 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Coins'),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: colorScheme.surfaceContainer,
-        selectedItemColor: colorScheme.secondary,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+        iconSize: 28,
+        icons: iconList,
+        backgroundColor: colorScheme.surfaceContainerHigh,
+        activeIndex: _currentIndex,
+        gapLocation: GapLocation.center,
+        notchSmoothness: NotchSmoothness.softEdge,
+        leftCornerRadius: 12,
+        rightCornerRadius: 12,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Coins',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.swap_horiz_rounded),
-            label: 'Trade',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wallet_rounded),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_4_rounded),
-            label: 'Profile',
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
@@ -103,6 +90,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: Colors.white,
+        onPressed: () {
+          //navigate to trading screen
+        },
+        child: const Icon(Icons.swap_vert_rounded, size: 36),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
