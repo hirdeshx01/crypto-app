@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
   bool _isLoading = false;
   final WebSocketChannel channel = WebSocketChannel.connect(
     Uri.parse('ws://prereg.ex.api.ampiy.com/prices'),
@@ -30,8 +31,43 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Coins'),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: colorScheme.surfaceContainer,
+        selectedItemColor: colorScheme.secondary,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart_rounded),
+            label: 'Coins',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.swap_horiz_rounded),
+            label: 'Trade',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wallet_rounded),
+            label: 'Wallet',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_4_rounded),
+            label: 'Profile',
+          ),
+        ],
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
