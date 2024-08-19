@@ -31,93 +31,57 @@ class _HomeScreenState extends State<HomeScreen> {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
+    final List<Widget> screens = [
+      Padding(
+        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                'MY BALANCE',
+                style: textTheme.titleMedium!.copyWith(
+                  color: colorScheme.onSurface.withAlpha(150),
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                '₹69,420', //for demonstration purposes only
+                style: textTheme.displayMedium,
+              ),
+            ),
+            const SizedBox(height: 24),
+            const ButtonRow(),
+            const SizedBox(height: 24),
+            _isLoading
+                ? const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : Expanded(
+                    child: CryptoListView(
+                      cryptoList: cryptoList,
+                      cryptoFullName: cryptoFullName,
+                      cryptoIcons: cryptoIcons,
+                    ),
+                  ),
+          ],
+        ),
+      ),
+      const CoinsScreen(),
+      const TradingScreen(),
+      const WalletScreen(),
+      const ProfileScreen(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Coins'),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: colorScheme.primary,
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: false,
-        landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Coins',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.swap_vert_rounded,
-            ),
-            label: 'Trade',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wallet_rounded),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_4_rounded),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
-      body: _currentIndex == 0
-          ? Padding(
-              padding:
-                  const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      'MY BALANCE',
-                      style: textTheme.titleMedium!.copyWith(
-                        color: colorScheme.onSurface.withAlpha(150),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      '₹69,420', //for demonstration purposes only
-                      style: textTheme.displayMedium,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  const ButtonRow(),
-                  const SizedBox(height: 24),
-                  _isLoading
-                      ? const Expanded(
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
-                      : Expanded(
-                          child: CryptoListView(
-                            cryptoList: cryptoList,
-                            cryptoFullName: cryptoFullName,
-                            cryptoIcons: cryptoIcons,
-                          ),
-                        ),
-                ],
-              ),
-            )
-          : _currentIndex == 1
-              ? const CoinsScreen()
-              : _currentIndex == 2
-                  ? const TradingScreen()
-                  : _currentIndex == 3
-                      ? const WalletScreen()
-                      : const ProfileScreen(),
+      bottomNavigationBar: _buildBottomNavigationBar(colorScheme),
+      body: screens[_currentIndex],
     );
   }
 
@@ -154,5 +118,43 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
     });
+  }
+
+  Widget _buildBottomNavigationBar(ColorScheme colorScheme) {
+    return BottomNavigationBar(
+      selectedItemColor: colorScheme.primary,
+      type: BottomNavigationBarType.fixed,
+      showUnselectedLabels: false,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_rounded),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bar_chart_rounded),
+          label: 'Coins',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.swap_vert_rounded,
+          ),
+          label: 'Trade',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.wallet_rounded),
+          label: 'Wallet',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_4_rounded),
+          label: 'Profile',
+        ),
+      ],
+      currentIndex: _currentIndex,
+      onTap: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+    );
   }
 }
