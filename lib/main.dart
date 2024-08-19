@@ -15,9 +15,12 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.lightBlue,
+          seedColor: Colors.blueGrey,
           brightness: Brightness.dark,
-          primary: const Color(0xFF0000CD),
+        ),
+        iconButtonTheme: const IconButtonThemeData(
+          style:
+              ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.blue)),
         ),
         textTheme: GoogleFonts.jetBrainsMonoTextTheme(
           const TextTheme(
@@ -32,8 +35,7 @@ class MainApp extends StatelessWidget {
       ),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.lightBlue,
-          primary: const Color.fromARGB(255, 35, 57, 222),
+          seedColor: Colors.blue,
         ),
         textTheme: GoogleFonts.jetBrainsMonoTextTheme(
           const TextTheme(

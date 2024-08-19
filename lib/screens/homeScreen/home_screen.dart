@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:ampiy_homepage/models/crypto_maps.dart';
+import 'package:ampiy_homepage/screens/coins_screen.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/button_row.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/crypto_list_view.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:ampiy_homepage/screens/profile_screen.dart';
+import 'package:ampiy_homepage/screens/trading_screen.dart';
+import 'package:ampiy_homepage/screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -17,17 +20,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  bool _isLoading = false;
   final WebSocketChannel channel = WebSocketChannel.connect(
     Uri.parse('ws://prereg.ex.api.ampiy.com/prices'),
   );
-  final iconList = <IconData>[
-    Icons.home_rounded,
-    Icons.bar_chart_rounded,
-    Icons.wallet_rounded,
-    Icons.person_4_rounded,
-  ];
+  int _currentIndex = 0;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,70 +35,89 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Coins'),
       ),
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        activeColor: colorScheme.error,
-        iconSize: 28,
-        icons: iconList,
-        backgroundColor: colorScheme.surfaceContainerHigh,
-        activeIndex: _currentIndex,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        leftCornerRadius: 10,
-        rightCornerRadius: 10,
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: colorScheme.primary,
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: false,
+        landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart_rounded),
+            label: 'Coins',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.swap_vert_rounded,
+            ),
+            label: 'Trade',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wallet_rounded),
+            label: 'Wallet',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_4_rounded),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Text(
-                'MY BALANCE',
-                style: textTheme.titleMedium!.copyWith(
-                  color: colorScheme.onSurface.withAlpha(150),
-                ),
-              ),
-            ),
-            Center(
-              child: Text(
-                '₹69,420', //for demonstration purposes only
-                style: textTheme.displayMedium,
-              ),
-            ),
-            const SizedBox(height: 24),
-            const ButtonRow(),
-            const SizedBox(height: 24),
-            _isLoading
-                ? const Expanded(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : Expanded(
-                    child: CryptoListView(
-                      cryptoList: cryptoList,
-                      cryptoFullName: cryptoFullName,
-                      cryptoIcons: cryptoIcons,
+      body: _currentIndex == 0
+          ? Padding(
+              padding:
+                  const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Text(
+                      'MY BALANCE',
+                      style: textTheme.titleMedium!.copyWith(
+                        color: colorScheme.onSurface.withAlpha(150),
+                      ),
                     ),
                   ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        onPressed: () {
-          //navigate to trading screen
-        },
-        child: const Icon(Icons.swap_vert_rounded, size: 36),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                  Center(
+                    child: Text(
+                      '₹69,420', //for demonstration purposes only
+                      style: textTheme.displayMedium,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  const ButtonRow(),
+                  const SizedBox(height: 24),
+                  _isLoading
+                      ? const Expanded(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : Expanded(
+                          child: CryptoListView(
+                            cryptoList: cryptoList,
+                            cryptoFullName: cryptoFullName,
+                            cryptoIcons: cryptoIcons,
+                          ),
+                        ),
+                ],
+              ),
+            )
+          : _currentIndex == 1
+              ? const CoinsScreen()
+              : _currentIndex == 2
+                  ? const TradingScreen()
+                  : _currentIndex == 3
+                      ? const WalletScreen()
+                      : const ProfileScreen(),
     );
   }
 
