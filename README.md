@@ -14,6 +14,20 @@ A new Flutter project.
 - Real-time data visualization using `fl_chart`
 - Secure communication with `web_socket_channel`
 
+## Screenshots
+
+Here are some screenshots of the application:
+
+<div style="display: flex; gap: 20px;">
+    <img src="assets/screenshots/home_light.png" alt="Signup Screen Light" width="250">
+    <img src="assets/screenshots/home_dark.png" alt="Signup Screen Dark" width="250">
+</div>
+
+<div style="display: flex; gap: 20px;">
+    <img src="assets/screenshots/home2_light.png" alt="Login Screen Light" width="250">
+    <img src="assets/screenshots/home2_dark.png" alt="Login Screen Dark" width="250">
+</div>
+
 ## Getting Started
 
 To get started with the project, follow these steps:
@@ -43,16 +57,6 @@ Here are some screenshots of the application:
 
 ### Settings Screen
 ![Settings Screen](screenshots/settings_screen.png)
-
-## Project Structure
-
-- `lib/`: Contains the Dart source code for the application.
-- `android/`: Android-specific files.
-- `ios/`: iOS-specific files.
-- `linux/`: Linux-specific files.
-- `macos/`: macOS-specific files.
-- `web/`: Web-specific files.
-- `windows/`: Windows-specific files.
 
 ## Dependencies
 
