@@ -40,6 +40,13 @@ class MainApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
         ),
+        iconButtonTheme: const IconButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(
+              Color.fromARGB(255, 9, 0, 136),
+            ),
+          ),
+        ),
         textTheme: GoogleFonts.jetBrainsMonoTextTheme(
           const TextTheme(
             displayMedium: TextStyle(

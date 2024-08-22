@@ -27,7 +27,6 @@ class PriceChangeDistributionChart extends StatelessWidget {
                       showTitles: true,
                       getTitlesWidget: (double value, TitleMeta meta) {
                         const style = TextStyle(
-                          color: Colors.white,
                           fontSize: 10,
                         );
                         Widget text;
