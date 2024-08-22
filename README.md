@@ -20,7 +20,7 @@ To get started with the project, follow these steps:
 
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/yourusername/ampiy_homepage.git
+    git clone https://github.com/hirdeshx01/crypto-app.git
     cd ampiy_homepage
     ```
 
