@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Overview
 
-`ampiy_homepage` is a Flutter application designed to provide a seamless user experience across multiple platforms including Android, iOS, Linux, macOS, and web. This project leverages various Flutter plugins and packages to deliver a rich and interactive interface.
+`ampiy_homepage` is a Flutter application designed to replicate Ampiy's cryto app homepage.
 
 ## Features
 
