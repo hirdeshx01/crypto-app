@@ -47,17 +47,7 @@ To get started with the project, follow these steps:
     ```sh
     flutter run
     ```
-
-## Screenshots
-
-Here are some screenshots of the application:
-
-### Home Screen
-![Home Screen](screenshots/home_screen.png)
-
-### Settings Screen
-![Settings Screen](screenshots/settings_screen.png)
-
+    
 ## Dependencies
 
 The project uses the following dependencies:
@@ -79,7 +69,3 @@ To contribute to the project, follow these steps:
 4. Commit your changes (`git commit -m 'Add some feature'`).
 5. Push to the branch (`git push origin feature-branch`).
 6. Open a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
