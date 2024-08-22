@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ampiy_homepage/models/crypto_maps.dart';
 import 'package:ampiy_homepage/screens/coins_screen.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/button_row.dart';
+import 'package:ampiy_homepage/screens/homeScreen/components/chart.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/crypto_list_view.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/hot_coins.dart';
 import 'package:ampiy_homepage/screens/homeScreen/components/zones.dart';
@@ -70,6 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       cryptoFullName: cryptoFullName,
                       cryptoIcons: cryptoIcons,
                     ),
+              const SizedBox(height: 24),
+              Text(
+                'Market Variation Spectrum',
+                style: txtTheme.titleLarge,
+              ),
+              const PriceChangeDistributionChart(),
               const SizedBox(height: 24),
               Text(
                 'Hot Coins',
