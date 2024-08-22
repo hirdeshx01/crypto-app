@@ -15,57 +15,57 @@ class CryptoListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: cryptoList.length,
-      itemBuilder: (context, index) {
-        String cryptoKey = cryptoList.keys.elementAt(index);
-        Map<String, dynamic> cryptoData = cryptoList[cryptoKey]!;
-        String fullName = cryptoFullName[cryptoKey] ?? 'Unknown';
+    return SingleChildScrollView(
+      child: Column(
+        children: cryptoList.keys.map((cryptoKey) {
+          Map<String, dynamic> cryptoData = cryptoList[cryptoKey]!;
+          String fullName = cryptoFullName[cryptoKey] ?? 'Unknown';
 
-        double currentPrice = double.parse(cryptoData['c']);
-        String formatCurrentPrice =
-            NumberFormat.currency(locale: 'en_IN', symbol: '₹')
-                .format(currentPrice);
+          double currentPrice = double.parse(cryptoData['c']);
+          String formatCurrentPrice =
+              NumberFormat.currency(locale: 'en_IN', symbol: '₹')
+                  .format(currentPrice);
 
-        Color posOrNeg = double.parse(cryptoData['P']) >= 0
-            ? const Color(0xFF32de84)
-            : const Color(0xFFfd5c63);
+          Color posOrNeg = double.parse(cryptoData['P']) >= 0
+              ? const Color(0xFF32de84)
+              : const Color(0xFFfd5c63);
 
-        IconData icon = cryptoIcons[cryptoKey]!;
+          IconData icon = cryptoIcons[cryptoKey]!;
 
-        return ListTile(
-          leading: Icon(icon),
-          title: Text(cryptoKey),
-          subtitle: Text(fullName),
-          trailing: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                formatCurrentPrice,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    double.parse(cryptoData['P']) >= 0
-                        ? Icons.arrow_drop_up_sharp
-                        : Icons.arrow_drop_down_sharp,
-                    color: posOrNeg,
-                  ),
-                  Text(
-                    '${cryptoData['P']}%',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                          color: posOrNeg,
-                        ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          onTap: () {},
-        );
-      },
+          return ListTile(
+            leading: Icon(icon),
+            title: Text(cryptoKey),
+            subtitle: Text(fullName),
+            trailing: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  formatCurrentPrice,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      double.parse(cryptoData['P']) >= 0
+                          ? Icons.arrow_drop_up_sharp
+                          : Icons.arrow_drop_down_sharp,
+                      color: posOrNeg,
+                    ),
+                    Text(
+                      '${cryptoData['P']}%',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: posOrNeg),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }
